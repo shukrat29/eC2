@@ -1,10 +1,17 @@
 import React from "react";
+import Header from "./components/Header";
+import { Outlet } from "react-router-dom";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <>
+      <Header />
+      <div>
+        <Outlet />
+      </div>
+      <Footer />
+    </>
   );
 };
 
