@@ -1,7 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
 
 const Header = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex justify-between p-3 border shadow-lg py-6">
       <div>
@@ -18,14 +36,22 @@ const Header = () => {
           <Link to="/">
             <li>Home</li>
           </Link>
-          <li>About Us</li>
-          <li>Cart</li>
-          <Link to="/signup">
-            <li>Signup</li>
+
+          <Link to="/cart">
+            <li>Cart</li>
           </Link>
-          <Link to="/login">
-            <li>Login</li>
-          </Link>
+          {!userInfo ? (
+            <>
+              <Link to="/signup">
+                <li>Signup</li>
+              </Link>
+              <Link to="/login">
+                <li>Login</li>
+              </Link>
+            </>
+          ) : (
+            <button onClick={logoutHandler}>Logout</button>
+          )}
         </ul>
       </div>
     </div>

@@ -36,6 +36,7 @@ const SignupPage = () => {
       try {
         const res = await signup({ name, email, password }).unwrap();
         dispatch(setCredentials(res));
+        toast.success("signup successfull");
         navigate(redirectPath);
       } catch (error) {
         toast.error(error?.data?.message || error.error);
