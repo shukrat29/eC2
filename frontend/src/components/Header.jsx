@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div className="flex justify-between p-3 border shadow-lg py-6">
       <div>
-        <h1>EC2 APP</h1>
+        <h1 className="font-bold text-2xl text-red-600">TechStore</h1>
       </div>
 
       <div className="flex items-center gap-4">
@@ -15,12 +15,16 @@ const Header = () => {
           placeholder="Search..."
         />
         <ul className="flex gap-4">
-          <li>Home</li>
+          <Link to="/">
+            <li>Home</li>
+          </Link>
           <li>About Us</li>
           <li>Cart</li>
-          <li>Login</li>
           <Link to="/signup">
             <li>Signup</li>
+          </Link>
+          <Link to="/login">
+            <li>Login</li>
           </Link>
         </ul>
       </div>
