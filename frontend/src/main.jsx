@@ -13,6 +13,9 @@ import store from "./store.js";
 import HomePage from "./pages/HomePage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
+import ProductListPage from "./pages/admin/ProductListPage.jsx";
+import AddProductPage from "./pages/admin/AddProductPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +23,12 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
+
+      {/* Admin route */}
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/productlist" element={<ProductListPage />} />
+        <Route path="/admin/product/add" element={<AddProductPage />} />
+      </Route>
     </Route>
   )
 );

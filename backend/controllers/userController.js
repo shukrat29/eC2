@@ -1,5 +1,5 @@
-import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
+import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
 
 // @desc Signup user
@@ -36,9 +36,14 @@ const userSignUp = asyncHandler(async (req, res) => {
 // @route POST /api/users/login
 // @access Private
 const userLogin = asyncHandler(async (req, res) => {
+  console.log(req.body);
+
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: email });
   if (user && (await user.matchPassword(password))) {
+    // Creating token passing userId as the payload
+    generateToken(res, user._id);
+
     res.json({
       _id: user._id,
       name: user.name,
